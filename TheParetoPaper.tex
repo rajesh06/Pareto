@@ -1,7 +1,12 @@
 \documentclass[]{article} %scrartcl
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{commath}
+\usepackage{ifthen}
+
 
 %opening
-\title{The Single Parameter Pareto}
+\title{The Single Parameter Pareto Revisited}
 \author{Rajesh Sahasrabuddhe, FCAS, MAAA}
 
 \begin{document}
@@ -18,14 +23,54 @@ In one of his seminal works, Stephen W. Philbrick\cite{Philbrick} proposed an el
 
 This paper expands on that work in several ways through the following:
 \begin{enumerate}
-\item A consitent notational framework
+\item A consistent notational framework
 \item A review of the various formulae including supporting derivation in the Appendices
-\item Consideration of maximum probably loss using order statistics
-\item Quatification of parameter uncertainty using Bayesian Markov chain Monte Carlo (MCMC) methods (expanding on the work of Meyers and Reichle \& Yonkunis)
+\item Consideration of maximum probable loss using order statistics
+\item Quantification of parameter uncertainty using Bayesian Markov chain Monte Carlo (MCMC) methods (expanding on the work of Meyers and Reichle \& Yonkunis)
 \item Frequency and severity trends
-\item Dealing with claims less than the threshold (expaning on the work of Fackler)
+\item Dealing with claims less than the threshold (expanding on the work of Fackler)
 \end{enumerate}
+\section{Notational Framework}
+\subsection{The \emph{Single Parameter} Pareto}
+Many reviewers are often confused by the reference to the \emph{single parameter}. After all \emph{Philbrick} In Section III:
+\begin{itemize}
+\item Initially presents a Pareto with two parameters, $k$ and $a$.
+\item Later adds that claims should be ``normalized'' by dividing by the ``selected lower bound'' - 
+\end{itemize}
+This presentation leaves many readers not understanding how the lower bound, $k$,  lost its parameter status. 
 
+Users of the SPP model should consider the process of normalizing the claims to be a transformation of the data rather than the application of a parameter. An analogous transformation occurs when we take $\log$s we do not consider the base of the logarithm to be a parameter.
+
+To improve clarity of this concept, we present the following notation:
+\begin{eqnarray}
+	\begin{array}{ccl}
+		\mathbf{Y} & = & \text{observed claim random variable} \\ 
+		\mathbf{Y}& \in &  [\text{lower bound}, \infty]\\	
+		\mathbf{X} & =  & g(\mathbf{Y})\\
+		g(\mathbf{Y}) & =  & \mathbf{Y}/\text{lower bound}\\
+		\mathbf{X}& \in &  [1, \infty]\\
+	\end{array} 
+\end{eqnarray}
+We can now work with model forms in the space of $\mathbf{X}$ and then use $g^{-1}$ to transform back into the space of $\mathbf{Y}$. We can also now present the density and distribution functions.
+
+\begin{align}
+		f(x) & =  qx^{-(q+1)}\\
+		F(x) & =  1 - x^{-q}
+\end{align}
+
+\begin{eqnarray}
+\begin{array}{ccl}
+	F(x) & = &\int_{1}^{x} f(x) \dif x \\	
+		& = &\int_{1}^{x}qx^{-(q+1)} \dif x\\
+		& = &q \int_{1}^{x}x^{-(q+1)} \dif x\\
+		& = &q \frac{1}{-(q+1)+1} x^{-(q+1)+1} \bigg|_{1}^{x}\\
+		& = &q \frac{1}{-q} x^{-q} \bigg|_{1}^{x}\\
+		& = & - x^{-q}\bigg|_{1}^{x}\\
+		& = & 1 - x^{-q}
+\end{array}
+\end{eqnarray}
+
+\subsection{Actuarial Formul\ae}
 \bibliographystyle{plain}
 \bibliography{MyBib}
 \end{document}
