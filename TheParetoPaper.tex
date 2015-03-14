@@ -74,7 +74,7 @@ In Appendix \ref{ParetoInventory}, we provide an inventory of Pareto distributio
 		& = \frac{q}{1-q} x^{-q+1} \Big|_{1}^{\infty}\nonumber\\
 	\mathbb{E}[X] 	& = \frac{q}{1-q} \dfrac{1}{x^{q-1}} \Big|_{1}^{\infty}\label{EV}
 \end{align}
-We can see that for $x = 1$ (the lower limit of integration) equation (\ref{EV}) evaluates to $\dfrac{q}{1-q}$. However for $x = \infty$, we have the following\footnote{In the limit as $x\to\infty$, the expression evaluates to  $-\frac{q}{q+1}$. However evaluated at $\infty$, the expression is undefined.}:
+We can see that for $x = 1$ (the lower limit of integration) equation (\ref{EV}) evaluates to $\dfrac{q}{1-q}$. However for $x = \infty$, we have the following\footnote{In the limit as $x\to\infty$, the expression evaluates to  $-\dfrac{q}{q+1}$. However evaluated at $\infty$, the expression is undefined.}:
 
 \[
     \frac{q}{1-q} \dfrac{1}{x^{q-1}} = 
@@ -95,19 +95,28 @@ and therefore we have:
 \end{cases}
 \]
 or more simply:
-\[
-    \mathbb{E}[X]  = 
+
+\begin{equation}
+\mathbb{E}[X]  = 
 \begin{cases}
-    \dfrac{q}{q-1},& \text{if } q > 1\\
-    \text{undefined},& \text{if } q \leq 1\\         
+\dfrac{q}{q-1},& \text{if } q > 1\\
+\text{undefined},& \text{if } q \leq 1\\         
 \end{cases}
-\]
+\end{equation}
+
 %For the remainder of Section \ref{Prelims}, we will restrict ourselves to the $q>1$ case. 
 
-We can use Equation (\ref{EV}), to calculate the limited expected value through $b$\footnote{Philbrick used $b$ to refer to both the ``lower bound" and the policy limit. We will not do that in this paper primarily for clarity as using a variable to represent the lower bound implied at least the possibility that the lower bound was a parameter. Conveniently, it also allows us  to use the traditional policy notation as attaching at $a$ through limit $b$ with the resulting layer width equal to $b - a$.} as:
-\begin{align}
-	\mathbb{E}[X;b] = 
-\end{align}
+We can use Equation (\ref{EV}), to calculate the limited expected value through $b$
+as preneted in Appendix \ref{ParetoLEV} as:\footnote{Philbrick used $b$ to refer to both the ``lower bound" and the policy limit. We will not do that in this paper primarily for clarity as using a variable to represent the lower bound implied at least the possibility that the lower bound was a parameter. Conveniently, it also allows us  to use the traditional policy notation as attaching at $a$ through limit $b$ with the resulting layer width equal to $b - a$.} 
+\begin{equation}
+	\mathbb{E}[X;b] = \frac{q - b^{1-q}}{q-1}
+\end{equation}
+
+In that derivation, there is no restriction that $q > 1$. That is, we recognize that, although the limited expected value is undefined, expected values are defined when we have an upper limit (such as a policy limit). As such, users of the SPP need not ``fear'' $q$ values less than 1 for most insurance applications.
+
+\section{The Parameter}
+\section{Trend}
+
 \newpage
 \appendix
 \appendixpage
@@ -127,23 +136,19 @@ Appendix first content.
 		&= -x^{-q} - (-1^{-q})\nonumber\\
 	 F(x) &=  1 - x^{-q}
 \end{align}
-\subsection{Limited Expected Value}
-For $q > 1$, the limited expected value is calculated as:
+\subsection{Limited Expected Value}\label{ParetoLEV}
+The limited expected value is calculated as:
 \begin{align}
 	\mathbb{E}[X;b] 	&= \frac{q}{1-q} \dfrac{1}{x^{q-1}} \Big|_{1}^{b} + b  (1-F(b))\nonumber\\
  	&=  \frac{q}{1-q} \left[ \dfrac{1}{b^{q-1}} - \dfrac{1}{1^{q-1}}\right]+  b  \left[1-(1-b^{-q})\right]\nonumber\\
  	&=  \frac{q}{1-q} \left[ \dfrac{1}{b^{q-1}} - 1\right]+  b  \left[b^{-q}\right]\nonumber\\
  	&=  \frac{q}{q-1} \left[1 - \dfrac{1}{b^{q-1}}\right]+ b^{1-q}\nonumber\\
- 	&=  \frac{q}{q-1} \left[1 - b^{1-q}\right]+b^{1-q}\nonumber\\
- 	&=  \frac{q}{q-1} \left[1 - b^{1-q}\right]+ b^{1-q}\nonumber\\
- 	&=  \frac{q}{q-1} \left[1 - b^{1-q}\right]+b^{1-q}\nonumber\\
- 	&=  \frac{q}{q-1} \left[1 - b^{1-q}\right]+ b^{1-q}\\
- 	&=	\frac{q}{q-1} \left[1 - b^{1-q} + \frac{q}{q-1} b^{1-q}\right]\nonumber\\
- %	&=	\frac{q}{q-1} \left[1 + (\frac{q}{q-1}-1) b^{1-q}\right]\nonumber\\	
- %	&=	\frac{q}{q-1} \left[1 + (\frac{1}{q-1}) b^{1-q}\right]\nonumber\\
- %	&=	\frac{q}{q-1} \left[1 + \frac{b^{1-q}}{q-1} \right]\nonumber\\
- %	&=	\frac{q}{q-1} \left[\frac{q-1+b^{1-q}}{q-1} \right]\nonumber\\	
+ 	&=  \frac{q}{q-1} \left[1 - b^{1-q}\right]+b^{1-q}\\ %This is the formula with E[X] 
+ 	&=  \frac{1}{q-1} \left[q - qb^{1-q} + (q-1)b^{1-q}\right]\nonumber\\
+ 	&=  \frac{1}{q-1} \left[q - b^{1-q}\right]\nonumber\\
+ 	&=	\frac{q - b^{1-q}}{q-1}
  \end{align}
+ 
 \bibliographystyle{plain}
 \bibliography{MyBib}
 \end{document}
