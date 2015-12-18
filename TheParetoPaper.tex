@@ -1,0 +1,154 @@
+\documentclass[]{article} %scrartcl
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{commath}
+\usepackage{ifthen}
+\usepackage[toc,page,header]{appendix}	
+\usepackage{arydshln}
+
+
+%opening
+\title{The Single Parameter Pareto Revisited}
+\author{Rajesh Sahasrabuddhe, FCAS, MAAA}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In one of his seminal works, Stephen W. Philbrick proposed an elegant solution to the complex problem of modeling claims amounts in excess layers. 
+
+\end{abstract}
+
+\section{Introduction}
+In one of his seminal works, Stephen W. Philbrick\cite{Philbrick} proposed an elegant solution to the complex problem of modeling claims amounts in excess layers. That solution involved the use a Pareto Type I distribution for claims above an excess threshold.\\
+
+This paper expands on that work in several ways through the following:
+\begin{enumerate}
+	\item A consistent notational framework
+	\item A review of the various formulae including supporting derivation in the Appendices
+	\item Parameter values less than or equal to 1
+	\item Consideration of maximum probable loss using order statistics
+	\item Quantification of parameter uncertainty using Bayesian Markov chain Monte Carlo (MCMC) methods (expanding on the work of Meyers and Reichle \& Yonkunis)
+	\item Frequency and severity trends
+	\item Dealing with claims less than the threshold (expanding on the work of Fackler)
+\end{enumerate}
+\section{Preliminaries}\label{Prelims}
+\subsection{The \emph{Single Parameter} Pareto}
+Many reviewers are often confused by the reference to the \emph{single parameter}. After all \emph{Philbrick} in Section III:
+\begin{itemize}
+\item Initially presents a Pareto with two parameters, $k$ and $a$.
+\item Later adds that claims should be ``normalized'' by dividing by the ``selected lower bound''
+\end{itemize}
+This presentation leaves many readers not understanding how the lower bound,~$k$,  lost its parameter status. 
+
+Users of the SPP model should consider the process of normalizing the claims to be a transformation of the data rather than the application of a parameter. An analogous transformation occurs when we take $\log$s. When we do that, we do not consider the base of the logarithm to be a parameter. Similarly, we will not consider the lower bound to be a parameter.
+
+To improve clarity of this concept, we present the following notation:
+\begin{eqnarray}
+	\begin{array}{ccl}
+		\mathbf{Y} & = & \text{observed claim random variable} \\ 
+		\mathbf{Y}& \in &  [\text{lower bound}, \infty]\\
+		\cline{1-3}
+		\mathbf{X} & =  & g(\mathbf{Y})\\
+		g(\mathbf{Y}) & =  & \mathbf{Y}/\text{lower bound}\\
+		\mathbf{X}& \in &  [1, \infty]\\
+	\end{array} 
+\end{eqnarray}
+We can now work with model forms in the space of $\mathbf{X}$ and then use $g^{-1}$ to transform back into the space of $\mathbf{Y}$. We can also now present the density and distribution functions.
+
+\begin{align}
+		f(x) & =  qx^{-(q+1)}\label{SPPf}\\
+		F(x) & =  1 - x^{-q}\label{SPPF}
+\end{align}
+
+In Appendix \ref{ParetoInventory}, we provide an inventory of Pareto distributions including the SPP presented in Equations (\ref{SPPf}) and (\ref{SPPF}). In  Appendix \ref{ParetoF}, we provide the derivation of the distribution function (Equation (\ref{SPPF})).
+
+\subsection{Actuarial Formul\ae}
+\begin{align}
+	\mathbb{E}[X] & = \int_{1}^{\infty}x f(x) \dif x \nonumber\\
+		& = \int_{1}^{\infty}xqx^{-(q+1)} \dif x\nonumber\\
+		& = q \int_{1}^{\infty}x^{-q} \dif x\nonumber\\
+		& = q \frac{1}{-q+1} x^{-q+1} \Big|_{1}^{\infty}\nonumber\\
+		& = \frac{q}{1-q} x^{-q+1} \Big|_{1}^{\infty}\nonumber\\
+	\mathbb{E}[X] 	& = \frac{q}{1-q} \dfrac{1}{x^{q-1}} \Big|_{1}^{\infty}\label{EV}
+\end{align}
+We can see that for $x = 1$ (the lower limit of integration) equation (\ref{EV}) evaluates to $\dfrac{q}{1-q}$. However for $x = \infty$, we have the following\footnote{In the limit as $x\to\infty$, the expression evaluates to  $-\dfrac{q}{q+1}$. However evaluated at $\infty$, the expression is undefined.}:
+
+\[
+    \frac{q}{1-q} \dfrac{1}{x^{q-1}} = 
+\begin{cases}
+    0,& \text{if } q > 1\\
+    \text{undefined},& \text{if } q = 1\\         
+    \infty, & \text{if }q < 1
+\end{cases}
+\]
+
+and therefore we have: 
+\[
+    \mathbb{E}[X]  = 
+\begin{cases}
+    0 - \dfrac{q}{1-q},& \text{if } q > 1\\
+    \text{undefined},& \text{if } q = 1\\         
+    \infty, & \text{if }q < 1
+\end{cases}
+\]
+or more simply:
+
+\begin{equation}
+\mathbb{E}[X]  = 
+\begin{cases}
+\dfrac{q}{q-1},& \text{if } q > 1\\
+\text{undefined},& \text{if } q \leq 1\\         
+\end{cases}
+\end{equation}
+
+%For the remainder of Section \ref{Prelims}, we will restrict ourselves to the $q>1$ case. 
+
+We can use Equation (\ref{EV}), to calculate the limited expected value through $b$
+as preneted in Appendix \ref{ParetoLEV} as:\footnote{Philbrick used $b$ to refer to both the ``lower bound" and the policy limit. We will not do that in this paper primarily for clarity as using a variable to represent the lower bound implied at least the possibility that the lower bound was a parameter. Conveniently, it also allows us  to use the traditional policy notation as attaching at $a$ through limit $b$ with the resulting layer width equal to $b - a$.} 
+\begin{equation}
+	\mathbb{E}[X;b] = \frac{q - b^{1-q}}{q-1}
+\end{equation}
+
+In that derivation, there is no restriction that $q > 1$. That is, we recognize that, although the limited expected value is undefined, expected values are defined when we have an upper limit (such as a policy limit). As such, users of the SPP need not ``fear'' $q$ values less than 1 for most insurance applications - particularly those related to property exposures as they have fixed upper bounds.
+
+\section{The Parameter}
+\section{Trend}
+
+\newpage
+\appendix
+\appendixpage
+% How to insert here a TOC concerning only the appendix sections ????
+
+\section{An Inventory of Pareto Distributions}\label{ParetoInventory}
+Appendix first content.
+\section{Derivation of Forumul\ae}
+\subsection{SPP Cumulative Distribution Function}\label{ParetoF}
+\begin{align}
+	F(x) &= \int_{1}^{x} f(x) \dif x \nonumber\\
+		&= \int_{1}^{x}qx^{-(q+1)} \dif x\nonumber\\
+		&= q \int_{1}^{x}x^{-(q+1)} \dif x\nonumber\\
+		&= q \frac{1}{-(q+1)+1} x^{-q} \Big|_{1}^{x}\nonumber\\
+		&=  q \frac{1}{-q} x^{-q} \Big|_{1}^{x}\nonumber\\
+		&=  - x^{-q}\Big|_{1}^{x}\nonumber\\
+		&= -x^{-q} - (-1^{-q})\nonumber\\
+	 F(x) &=  1 - x^{-q}
+\end{align}
+\subsection{Limited Expected Value}\label{ParetoLEV}
+The limited expected value is calculated as:
+\begin{align}
+	\mathbb{E}[X;b] 	&= \frac{q}{1-q} \dfrac{1}{x^{q-1}} \Big|_{1}^{b} + b  (1-F(b))\nonumber\\
+ 	&=  \frac{q}{1-q} \left[ \dfrac{1}{b^{q-1}} - \dfrac{1}{1^{q-1}}\right]+  b  \left[1-(1-b^{-q})\right]\nonumber\\
+ 	&=  \frac{q}{1-q} \left[ \dfrac{1}{b^{q-1}} - 1\right]+  b  \left[b^{-q}\right]\nonumber\\
+ 	&=  \frac{q}{q-1} \left[1 - \dfrac{1}{b^{q-1}}\right]+ b^{1-q}\nonumber\\
+ 	&=  \frac{q}{q-1} \left[1 - b^{1-q}\right]+b^{1-q}\\ %This is the formula with E[X] 
+ 	&=  \frac{1}{q-1} \left[q - qb^{1-q} + (q-1)b^{1-q}\right]\nonumber\\
+ 	&=  \frac{1}{q-1} \left[q - b^{1-q}\right]\nonumber\\
+ 	&=	\frac{q - b^{1-q}}{q-1}
+ \end{align}
+ 
+\bibliographystyle{plain}
+\bibliography{MyBib}
+\end{document}
