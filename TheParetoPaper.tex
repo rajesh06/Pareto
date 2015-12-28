@@ -8,6 +8,7 @@
 \usepackage{arydshln}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{color}
 
 
 %opening
@@ -97,19 +98,104 @@ In general, we leave formula derivation to the Appendices of this paper. In Appe
 %For the remainder of Section \ref{Prelims}, we will restrict ourselves to the $q>1$ case. 
 
 We can use Equation (\ref{EV}), to calculate the limited expected value through $b$
-as presented in Appendix \ref{ParetoLEV} as:\footnote{Philbrick used $b$ to refer to both the ``lower bound" and the policy limit. We will not do that in this paper primarily for clarity as using a variable to represent the lower bound implied at least the possibility that the lower bound was a parameter. Conveniently, it also allows us  to use the traditional policy notation as attaching at $a$ through limit $b$ with the resulting layer width equal to $b - a$.} 
+as presented in Appendix \ref{ParetoLEV} as:\footnote{Philbrick used $b$ to refer to both the ``lower bound" and the policy limit. We will not do that in this paper primarily for clarity as using a variable to represent the lower bound implied at least the possibility that the lower bound was a parameter. Conveniently, it also allows us  to use the traditional policy notation as attaching at $AP$ through limit $L$ with the resulting layer width equal to $L - L$.} 
 \begin{equation}
-	\mathbb{E}[X;b] = \frac{q - b^{1-q}}{q-1}
+	\mathbb{E}[X;b] = \frac{q - b^{1-q}}{q-1}\label{eqntx:ParetoLEV}
 \end{equation}
 
 In that derivation, there is no restriction that $q > 1$. That is, we recognize that, although the limited expected value is undefined, expected values are defined when we have an upper limit (such as a policy limit). As such, users of the SPP need not ``fear'' $q$ values less than 1 for most insurance applications.
 
-So for the expected claim amount for the layer between $a$ and $b$, we have:
+So for the expected claim amount for the layer between $AP$ and $L$, we have:
 
 \begin{align}
-\mathbb{E}[X;a, b] &= \frac{q - b^{1-q}}{q-1} - \frac{q - a^{1-q}}{q-1} \\
-&= \frac{a^{1-q} - b^{1-q}}{q-1}
+\mathbb{E}[X;AP, L] &= \frac{q - L^{1-q}}{q-1} - \frac{q - AP^{1-q}}{q-1}\nonumber \\
+&= \frac{AP^{1-q} - L^{1-q}}{q-1}\label{eqn:layerclaims}
 \end{align}
+
+This is, of course, likely the most common use of the SPP, estimating claims for an excess policy. This was also a focus of Section III of Philbrick's paper. I belive that that section includes one minor typographical error and a second calculation error. These are discussed below.
+\subsection{Errata}
+\subsubsection{Philbrick Errata \#1}
+	In the application of formula \ref{eqntx:ParetoLEV}, we should understand that there is a minor typographical error in Philbrick\cite{Philbrick}. The second paragraph following Equation (6) appears on Page 56 and includes the following:
+	\begin{quote}
+		\begin{align}
+		b &= 20 \color{red}\times\color{black} (500,000/25,000)\nonumber\\
+		&\text{which should be}\nonumber\\
+		b &= 500,000/25,000 = 20\nonumber
+		\end{align}
+	\end{quote}
+
+\subsubsection{Philbrick Errata \#2}
+Starting at the bottom on Page 58 and extending to Page 59, Philbrick presents an example with a $q$ parameter of $1.5$ and expected claim count of 7 that results in the following (where $S(x)$ represents the survival function):
+
+\begin{align}
+F(4) &= 1 - 4^{-1.5}\nonumber\\
+F(4) &= 7/8\nonumber\\
+S(4) &= 1 - F(4) = 1/8\nonumber
+\end{align}
+\begin{align}
+\mathbb{E}[n] &= 7\nonumber\\
+\mathbb{E}[n; x > 4] &= 7 \times S(4) = 7/8\label{eqn:exfreq}
+\end{align}
+
+(It is unfortunate that, in this example both $\mathbb{E}[n; x > 4]$ and $S(4)$ both equal $7/8$. )
+
+\begin{align}
+\mathbb{E}[X] &= \frac{1.5}{1.5-1}\nonumber\\
+\mathbb{E}[X] &= 3\nonumber
+\end{align}
+
+\begin{align}
+\mathbb{E}[X; 4] &= \dfrac{1.5 - 4^{1-1.5}}{1.5-1}\nonumber\\
+\mathbb{E}[X; 4] &= \dfrac{1.5 - 4^{-0.5}}{0.5}\nonumber\\
+\mathbb{E}[X; 4] &= \dfrac{1.5 - .5}{0.5}\nonumber\\
+\mathbb{E}[X; 4] &= 2\nonumber
+\end{align}
+The average severity of claims in the layer is $(\mathbb{E}[X] - \mathbb{E}[X; 4]) / S(4) = 8$. Using the frequency calculated in Equation (\ref{eqn:exfreq}), we estimate claims in the layer to be $8 \times 7 / 8 = 7$ which agrees with Philbrick's calculation.
+
+The error occurs when the example is extended to calculate claims in the layer from $AP = 3$ to $L = 7.5$. Using the approach above and the following:
+\begin{align}
+\mathbb{E}[X;3] &= 1.845299\nonumber\\
+\mathbb{E}[X;7.5] &= 2.269703\nonumber\\
+F(3) &= 0.8075499\nonumber\\
+S(3) &= 0.1924501\nonumber
+\end{align}.
+With that we have average claim amounts in the layer at 
+\begin{equation}
+\frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
+\end{equation}
+which agrees with Philbrick's calculation of ``net average claim size''. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(2.5)$ term in the frequency calculation is not entirely clear to the author. 
+
+\subsection{Policy Claims Estimate}
+The purpose of the Philbrick calculation was likely demonstrate that the average claim size in the layer between $AP$ and $L$ was equal to the expected value of claims limited to $L / AP$ net of the lower bound but multiplied by $AP$. The latter is calculated as Equation (\ref{eqntx:ParetoLEV}) $- 1$ which simplifies to:
+\begin{equation}
+\frac{1 - b^{1-q}}{q-1} \times AP
+\end{equation}
+
+
+We can demonstrate that as follows using Equation (\ref{eqn:layerclaims}) and the survival function as follows:
+\begin{align}
+\dfrac{\dfrac{AP^{1-q} - L^{1-q}}{q-1}}{S(AP)} &= 
+\dfrac{\dfrac{AP^{1-q} - L^{1-q}}{q-1}}{AP^{-q}}\nonumber\\
+&= \frac{1}{q-1} \times \frac{AP}{AP} \times \frac{AP^{1-q} - L^{1-q}}{AP^{-q}}\nonumber\\
+&= \frac{AP}{q-1} \times \frac{AP^{1-q} - L^{1-q}}{AP^{1-q}}\nonumber\\
+&= \frac{AP}{q-1} \times \left(1 - \left(\frac{L}{AP}\right)^{1-q}\right)\nonumber\\
+&= \frac{1 - (L/AP)^{1-q}}{q-1} \times AP
+\end{align}
+
+As mentioned, the most common actuarial application of the SPP is to estimate the number of claims, their average value and the resulting aggregate claim amount to a policy. We therefore summarize those formul\ae~in the Table \ref{tbl:PolicyFormulas}.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}[h]{cc}
+		\toprule
+		Number of Claims & $S(AP) = AP^{-q}$\\ \midrule
+		Average Value of Individual Claims & $\dfrac{1 - (L/AP)^{1-q}}{q-1} \times AP$\\ \midrule
+		Aggregate Claim Amount & $\dfrac{AP^{1-q} - L^{1-q}}{q-1}$\\
+		\bottomrule
+	\end{tabular}
+	\caption{Policy Analysis}\label{tbl:PolicyFormulas}			
+\end{table}
+ 
+
 
 \section{The Parameter}
 \section{Trend}
