@@ -27,16 +27,16 @@ In one of his seminal works, Stephen W. Philbrick proposed an elegant solution t
 \section{Introduction}
 In one of his seminal works, Stephen W. Philbrick\cite{Philbrick} proposed an elegant solution to the complex problem of modeling claims amounts in excess layers. That solution involved the use a Pareto Type I distribution for claims above an excess threshold.\\
 
-This paper expands on that work in several ways through the following:
+This paper expands on that work in several ways by providing the following:
 \begin{enumerate}
 	\item A consistent notational framework
 	\item A review of the various formul\ae~including supporting derivation in the Appendices
-	\item Parameter values less than or equal to 1
-	\item Consideration of maximum probable loss using order statistics
+	\item A discussion of parameter values less than or equal to 1
+	\item A summary of the formul\ae to calcualte policy frequency and seveirty. This section also included  errata related to certain issues in Philbrick.
+	\item An approach to allow consideration of maximum probable loss using order statistics
 	\item Quantification of parameter uncertainty using Bayesian Markov chain Monte Carlo (MCMC) methods (expanding on the work of Meyers and Reichle \& Yonkunis)
 	\item Frequency and severity trends
 	\item Dealing with claims less than the threshold (expanding on the work of Fackler)
-	\item Provides an errata to address certain issues in Philbrick
 \end{enumerate}
 \section{The \emph{Single Parameter} Pareto}
 Philbrick's Single Parameter Pareto (SPP) is a special case of the Pareto Type I distribution which has the following cumulative distribution function:
@@ -120,7 +120,7 @@ This is, of course, likely the most common use of the SPP, estimating claims for
 		\begin{align}
 		b &= 20 \color{red}\times\color{black} (500,000/25,000)\nonumber\\
 		&\text{which should be}\nonumber\\
-		b &= 500,000/25,000 = 20\nonumber
+		b &= 20 \color{red} = \color{black} 500,000/25,000\nonumber
 		\end{align}
 	\end{quote}
 
@@ -157,13 +157,13 @@ The error occurs when the example is extended to calculate claims in the layer f
 \mathbb{E}[X;3] &= 1.845299\nonumber\\
 \mathbb{E}[X;7.5] &= 2.269703\nonumber\\
 F(3) &= 0.8075499\nonumber\\
-S(3) &= 0.1924501\nonumber
-\end{align}.
+S(3) &= 0.1924501\nonumber.
+\end{align}
 With that we have average claim amounts in the layer at 
 \begin{equation}
 \frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
 \end{equation}
-which agrees with Philbrick's calculation of ``net average claim size''. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(2.5)$ term in the frequency calculation is not entirely clear to the author. 
+which agrees with Philbrick's calculation of ``net average claim size'' on Page 59. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(87,500/75,000) = F(2.5)$ term in the frequency calculation is not entirely clear to this author. 
 
 \subsection{Policy Claims Estimate}
 The purpose of the Philbrick calculation was likely demonstrate that the average claim size in the layer between $AP$ and $L$ was equal to the expected value of claims limited to $L / AP$ net of the lower bound but multiplied by $AP$. The latter is calculated as Equation (\ref{eqntx:ParetoLEV}) $- 1$ which simplifies to:
@@ -195,8 +195,6 @@ As mentioned, the most common actuarial application of the SPP is to estimate th
 	\caption{Policy Analysis}\label{tbl:PolicyFormulas}			
 \end{table}
  
-
-
 \section{The Parameter}
 \section{Trend}
 
