@@ -28,16 +28,20 @@ In one of his seminal works, Stephen W. Philbrick proposed an elegant solution t
 \section{Introduction}
 In one of his seminal works, Stephen W. Philbrick\cite{Philbrick} proposed an elegant solution to the complex problem of modeling claims amounts in excess layers. That solution involved the use a Pareto Type I distribution for claims above an excess threshold.\\
 
-This paper expands on that work in several ways through the following:
+This paper expands on that work in several ways by providing the following:
 \begin{enumerate}
 	\item A consistent notational framework
 	\item A review of the various formul\ae~including supporting derivation in the Appendices
-	\item Parameter values less than or equal to 1
-	\item Consideration of maximum probable loss using order statistics
+	\item A discussion of parameter values less than or equal to 1
+	\item A summary of the formul\ae to calcualte policy frequency and seveirty. This section also included  errata related to certain issues in Philbrick.
+	\item An approach to allow consideration of maximum probable loss using order statistics
 	\item Quantification of parameter uncertainty using Bayesian Markov chain Monte Carlo (MCMC) methods (expanding on the work of Meyers and Reichle \& Yonkunis)
 	\item Frequency and severity trends
 	\item Dealing with claims less than the threshold (expanding on the work of Fackler)
+<<<<<<< HEAD
 	\item Provides an errata to address certain issues in \philbrick
+=======
+>>>>>>> origin/master
 \end{enumerate}
 \section{The \emph{Single Parameter} Pareto}\label{sec:theSPP}
 Philbrick's Single Parameter Pareto (SPP) is a special case of the Pareto Type I distribution which has the following cumulative distribution function:
@@ -164,6 +168,7 @@ I believe that that section includes one minor typographical error and a second 
 		b &= 20 \color{red}\times\color{black} (500,000/25,000)\nonumber\\
 		&\text{which should be}\nonumber\\
 		b &= 500,000/25,000 = 20\nonumber
+		b &= 20 \color{red} = \color{black} 500,000/25,000\nonumber
 		\end{align}
 	\end{quote}
 
@@ -200,6 +205,7 @@ The error occurs when the example is extended to calculate claims in the layer f
 \mathbb{E}[X;3] &= 1.845299\nonumber\\
 \mathbb{E}[X;7.5] &= 2.269703\nonumber\\
 F(3) &= 0.8075499\nonumber\\
+<<<<<<< HEAD
 S(3) &= 0.1924501.\nonumber
 \end{align}
 The resulting the average claim amount in the layer is 
@@ -207,6 +213,15 @@ The resulting the average claim amount in the layer is
 \frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
 \end{equation}
 which agrees with Philbrick's calculation of ``net average claim size''. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(2.5)$ term in the frequency calculation is not entirely clear to me. 
+=======
+S(3) &= 0.1924501\nonumber.
+\end{align}
+With that we have average claim amounts in the layer at 
+\begin{equation}
+\frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
+\end{equation}
+which agrees with Philbrick's calculation of ``net average claim size'' on Page 59. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(87,500/75,000) = F(2.5)$ term in the frequency calculation is not entirely clear to this author. 
+>>>>>>> origin/master
 
 \subsubsection{Philbrick Errata \#3}
 Equation (11) indicates that ``$n$th moment of the Pareto distribution with no upper limit is'' $\dfrac{q}{q \color{red}+\color{black} n}$. Then, in Equation (12) the second moment is represented in the calculation of variance by $\dfrac{q}{q \color{red}-\color{black} n}$ and of course we have the calculation of mean as $\dfrac{q}{q - 1}$. We can clearly see the error in Equation (11).
@@ -221,9 +236,25 @@ f(x) & =  \dfrac{qx^{-(q+1)}}{1 - V^{-q}}\label{ISPPf}\\
 F(x) & =  \dfrac{1 - x^{-q}}{1 - V^{-q}}\label{ISPPF}
 \end{align}
 
+<<<<<<< HEAD
 The presentation above differs from the truncated SPP in \philbrick. In the latter, the SPP is an unlimited distribution the is truncated in application. That is, there is no change to the underlying density function. As noted in Equation \ref{ISPPf}, the presentation above is actually a new distribution with, importantly, a different maximum likelihood estimator for $q$.
 
 
+=======
+As mentioned, the most common actuarial application of the SPP is to estimate the number of claims, their average value and the resulting aggregate claim amount to a policy. We therefore summarize those formul\ae~in the Table \ref{tbl:PolicyFormulas}.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}[h]{cc}
+		\toprule
+		Number of Claims & $S(AP) = AP^{-q}$\\ \midrule
+		Average Value of Individual Claims & $\dfrac{1 - (L/AP)^{1-q}}{q-1} \times AP$\\ \midrule
+		Aggregate Claim Amount & $\dfrac{AP^{1-q} - L^{1-q}}{q-1}$\\
+		\bottomrule
+	\end{tabular}
+	\caption{Policy Analysis}\label{tbl:PolicyFormulas}			
+\end{table}
+ 
+>>>>>>> origin/master
 \section{The Parameter}
 \section{Trend}
 One of the more ``controversial'' issues in \philbrick relates to the application of trend. Specifically, Section V. states that ``However, the parameter of the Pareto distribution in this paper is unchanged due to trend.''
