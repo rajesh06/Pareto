@@ -26,29 +26,27 @@ In one of his seminal works, Stephen W. Philbrick proposed an elegant solution t
 \end{abstract}
 
 \section{Introduction}
-In one of his seminal works, Stephen W. Philbrick\cite{Philbrick} proposed an elegant solution to the complex problem of modeling claims amounts in excess layers. That solution involved the use a Pareto Type I distribution for claims above an excess threshold.\\
+In one of his seminal works, Stephen W. Philbrick\cite{Philbrick} proposed an elegant solution to the complex problem of modeling claims amounts in excess layers. That solution involved the use a Pareto Type~I distribution for claims above an excess threshold.\\
 
 This paper expands on that work in several ways by providing the following:
 \begin{enumerate}
 	\item A consistent notational framework
 	\item A review of the various formul\ae~including supporting derivation in the Appendices
 	\item A discussion of parameter values less than or equal to 1
-	\item A summary of the formul\ae to calcualte policy frequency and seveirty. This section also included  errata related to certain issues in Philbrick.
+	\item A summary of the formul\ae to calculate policy frequency and severity This section also included  errata related to certain issues in Philbrick.
 	\item An approach to allow consideration of maximum probable loss using order statistics
 	\item Quantification of parameter uncertainty using Bayesian Markov chain Monte Carlo (MCMC) methods (expanding on the work of Meyers and Reichle \& Yonkunis)
 	\item Frequency and severity trends
 	\item Dealing with claims less than the threshold (expanding on the work of Fackler)
-<<<<<<< HEAD
 	\item Provides an errata to address certain issues in \philbrick
-=======
->>>>>>> origin/master
 \end{enumerate}
-\section{The \emph{Single Parameter} Pareto}\label{sec:theSPP}
-Philbrick's Single Parameter Pareto (SPP) is a special case of the Pareto Type I distribution which has the following cumulative distribution function:
+
+\subsection{The \emph{Single Parameter} Pareto}\label{sec:theSPP}
+Philbrick's Single Parameter Pareto (SPP) is a special case of the Pareto Type~I distribution which has the following cumulative distribution function:
 \begin{equation}
 F(x) = 1 - \left(\frac{k}{x} \right)^a\label{eqn:Pareto1}
 \end{equation}
-Many reviewers are often confused by the reference to the \emph{single parameter}. After all, \philbrick, in Section III initially presents the Pareto with two parameters (Equation \ref{eqn:Pareto1}), $k$ and $a$, and then later adds that claims should be ``normalized'' by dividing by the ``selected lower bound''
+Many readers are often confused by the reference to the \emph{single parameter}. After all, \philbrick, in Section~III initially presents the Pareto with two parameters (Equation \ref{eqn:Pareto1}), $k$ and $a$, and then later adds that claims should be ``normalized'' by dividing by the ``selected lower bound''
 
 This presentation leaves many readers not understanding how the lower bound,~$k$,  lost its parameter status. Philbrick explains that this is because:
 \begin{quote}
@@ -56,7 +54,7 @@ This presentation leaves many readers not understanding how the lower bound,~$k$
 \end{quote}
 This explanation often leaves readers less than satisfied.
 
-We offer the alternative that users of the SPP model should consider the process of normalizing the claims to be a transformation of the data rather than the application of a parameter. An analogous transformation occurs when we take $\log$s. When we do that, we do not consider the base of the logarithm to be a parameter. Similarly, we will not consider the lower bound to be a parameter.
+I offer the alternative that users of the SPP model should consider the process of normalizing the claims to be a transformation of the data rather than the application of a parameter. An analogous transformation occurs when we take $\log$s. When we do that, we do not consider the base of the logarithm to be a parameter. Similarly, we will not consider the lower bound to be a parameter.
 
 To improve clarity of this concept, we present the following:
 
@@ -204,7 +202,6 @@ The error occurs when the example is extended to calculate claims in the layer f
 \mathbb{E}[X;3] &= 1.845299\nonumber\\
 \mathbb{E}[X;7.5] &= 2.269703\nonumber\\
 F(3) &= 0.8075499\nonumber\\
-<<<<<<< HEAD
 S(3) &= 0.1924501.\nonumber
 \end{align}
 The resulting the average claim amount in the layer is 
@@ -212,7 +209,7 @@ The resulting the average claim amount in the layer is
 \frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
 \end{equation}
 which agrees with Philbrick's calculation of ``net average claim size''. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(2.5)$ term in the frequency calculation is not entirely clear to me. 
-=======
+\begin{align}
 S(3) &= 0.1924501\nonumber.
 \end{align}
 With that we have average claim amounts in the layer at 
@@ -220,7 +217,6 @@ With that we have average claim amounts in the layer at
 \frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
 \end{equation}
 which agrees with Philbrick's calculation of ``net average claim size'' on Page 59. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(87,500/75,000) = F(2.5)$ term in the frequency calculation is not entirely clear to this author. 
->>>>>>> origin/master
 
 \subsubsection{Philbrick Errata \#3}
 Equation (11) indicates that ``$n$th moment of the Pareto distribution with no upper limit is'' $\dfrac{q}{q \color{red}+\color{black} n}$. Then, in Equation (12) the second moment is represented in the calculation of variance by $\dfrac{q}{q \color{red}-\color{black} n}$ and of course we have the calculation of mean as $\dfrac{q}{q - 1}$. We can clearly see the error in Equation (11).
@@ -255,8 +251,50 @@ As mentioned, the most common actuarial application of the SPP is to estimate th
  
 >>>>>>> origin/master
 \section{The Parameter}
+One desirable aspect of the \textit{SPP} is the simplicity of the calculation of the MLE of the Pareto parameter. Of course, the MLE is calculated from data using Equation (19) from \philbrick:
+
+\begin{equation}\label{mle}
+q = \frac{n}{\sum \ln(x)}
+\end{equation}
+
+
+That data is subject to sampling bias. That sampling bias results in an MLE that is biased low. As we recognize the sample underrepresents the population. Understanding that that underrepresentation is symmetric / unbaised, we would assume that, for example, the claim at the 2nd percentile is equally likely to be underrepresnted as the claim as the claim at the 98th percentile. 
+
+This is best illustrated by extending the example of the 2 missing claims. Denoting the missing percentile at $p^+$ and the missing low percentile as $p^- = 1 - p^+$. The values of $x$ at $p^+$ and $p^-$ are $\frac{1}{q}\times\ln(1-p^{+})$ and $\frac{1}{q}\times\ln(1-p^{-})$ with the latter simplifying to $\frac{1}{q}\times\ln(p^{+})$. The aggregate understatement is:
+\begin{equation}\label{denom_adj}
+\frac{1}{q}\times\ln(p^{+}(1-p^{+}))
+\end{equation}
+Of course with $p^{+}$ between $0.5$ and $1$, Equation \ref{denom_adj} will be negative. The least native value occurs at $p^{+} = 0.5$, we have a minimum adjustment factor of:
+ \begin{equation}\label{denom_adj_fctr}
+ \frac{\frac{1}{q}\times\ln(0.25) + \sum \ln(x)}{\sum \ln(x)}
+ \end{equation}
+
+
+Including those two adjusts the numerator of Equation \ref{mle} by \frac{n+2}{n}.  
+
+
+We can understand this is we assume that the sample 
+
+
+ 
 \section{Trend}
-One of the more ``controversial'' issues in \philbrick relates to the application of trend. Specifically, Section V. states that ``However, the parameter of the Pareto distribution in this paper is unchanged due to trend.''
+One of the more ``controversial'' issues in \philbrick relates to the application of trend. Specifically, Section V. states that ``However, the parameter of the Pareto distribution in this paper is unchanged due to trend.'' Its important to recognize that trend does not exist but rather that the effect of the trend is incorporated via an adjustment to frequency rather than to the Pareto parameter.
+
+The argument that the frequency of claims in excess of the lower bound in the experience period understates\footnote{assuming positive trend severity rate)} the frequency of claims excess of that same lower bound in the exposure period is straightforward.
+
+However, Philbrick argues the following as respects claims underlying the determination of the Pareto parameter:
+\begin{itemize}
+	\item The should not be trended
+	\item The domain should not be adjusted. 
+\end{itemize}
+He argues that these adjustments are not necessary as ``If one looks at the average excess claim \textit{with} a reasonable upper limit, the average claim size will \textit{not} be materially increasing over time.'' That is, under these conditions \textit{in typical actuarial applications}....
+
+
+
+
+
+
+
 
 \newpage
 \appendix
