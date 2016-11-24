@@ -22,3 +22,16 @@ plot(y = qs, x = seq(from = 1, to = 1.5, by = .001))
 plot(x = pareto_df$pareto_x, y = pareto_df$probs, xlim = c(0, 10),
   xlab = "x", ylab = "F(x)")
 lines(x = pareto_df$pareto_x, y = pareto_df$probs, col = "red")
+
+
+params <- list(q = 1.5)
+tail_wt <- data_frame(ptile = seq(from = 0.00, to = 0.99, by =.01)) %>%
+  dplyr::mutate(pareto_x = (1 - ptile)^(-1 / params$q))
+tw_plot_y <- (tail_wt$pareto_x[2:100] - tail_wt$pareto_x[1:99]) /
+  (tail_wt$ptile[2:100] - tail_wt$ptile[1:99])
+tw_plot_x <- tail_wt$ptile[1:99]
+plot(xlim = c(0,1), ylim = c(0,110),   x = tw_plot_x, y = tw_plot_y, type = 'l')
+
+
+
+
