@@ -3,9 +3,9 @@ Philbrick's Single Parameter Pareto (SPP) is a special case of the Pareto Type~I
 \begin{equation}
 F(x) = 1 - \left(\frac{k}{x} \right)^a\label{eqn:Pareto1}
 \end{equation}
-Many readers are often confused by the reference to the \emph{single parameter}. After all, \philbrick, in Section~III initially presents the Pareto with two parameters (Equation \ref{eqn:Pareto1}), $k$ and $a$, and then later adds that claims should be ``normalized'' by dividing by the ``selected lower bound''
+Many readers are often confused by the reference to the \emph{single parameter}. After all, in Section~III Philbrick initially presents the Pareto with two parameters (Equation \ref{eqn:Pareto1}), $k$ and $a$, and then later adds that claims should be ``normalized'' by dividing by the ``selected lower bound.''
 
-This presentation leaves many readers not understanding how the lower bound,~$k$,  lost its parameter status. Philbrick explains that this is because:
+This presentation leaves many readers not understanding how the lower bound,~$k$,  ``lost'' its parameter status. Philbrick explains that this is because:
 \begin{quote}
 	Although there may be situations where this value must be estimated, in virtually all insurance applications this value will be selected in advance. (Section III)
 \end{quote}
@@ -40,10 +40,43 @@ We can now work with model forms in the space of $\mathbf{X}$ and then use $g^{-
 \end{align}
 
 \subsection{Tail weight and the SPP}
-The appropriate application of the SPP is in the modeling of claims in the tail of a distribution. The SPP is generally used where the tail is said to be ``thick'' or ``heavy.'' We can measure tail weight based on the change in claim size per unit change in the distribution percentile. Specifically, we calculate the following measure of tail weight:
-\begin{equation}\label{tailWt}
-\frac{x(p_1) / x(p_0)}{p_1 - p_0}
-\end{equation}
+The appropriate application of the SPP is in the modeling of claims in the tail of a distribution. The SPP is generally used where the tail is said to be ``thick'' or ``heavy.'' We can define the weight of a tail in terms of how quickly the density function approaches $0$ (light-tailed distributions approach $0$ more quickly) or how quickly the distribution function approach $1$ (light-tailed distributions approach $1$ more quickly). We will use the distribution function since the domain is more easily understood and comparable between distributions. 
+
+Effectively we measure tail weight as the slope of the distribution function and 
+
+For a sample $x_1$ \ldots $x_n$ we can compare the tail function of a distribution to the empirical tail weight function.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}[h]{cc}
+	\toprule
+	Model tail-weight & $TW_m(i)$ = 
+	$\dfrac{
+		\nicefrac{1}{n} %F(x_{(i+1)}) - {F(x_{(i)})}
+	}{
+		F^{-1}(\frac{i+1}{n}) %{x_{(i+1)}} 
+		- F^{-1}(\nicefrac{i}{n}) %{x_{(i)}}
+	}$\\
+	\midrule
+	Empirical tail-weight & $TW_e(i)$ = 
+	$\dfrac{
+		\nicefrac{1}{n}
+	}{
+		{x_{(i+1)}}-{x_{(i)}}
+	}$\\
+	\bottomrule
+	\end{tabular}
+\end{table}
+
+Where we use $x_{(i)}$ to indicate the $i$th order statistic of the sample and $F^{-1}$ to refer to the inverse of the the cumulative distribution function.
+
+Of course, we still have to identify where we measure tail weight. Rather than identifying a single point (or percentile), it is more effective to plot the functions.
+
+
+
+
+
+We can measure tail weight based on the change in claim size per unit change in the distribution percentile. Specifically, we calculate the following measure of tail weight:
+
 In this section, we compare the tail weight of the Pareto to that of the lognormal distribution.
 
 We also note that the mode of the SPP is at its minimum value of $x = 1$. Conversely, for the lognormal, the mode is right of its minimum value of  of $x = 0$.
