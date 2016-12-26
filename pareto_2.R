@@ -1,6 +1,6 @@
 library(dplyr)
 base_q <- 1.5
-pareto_df <- data_frame(probs = seq(from = 0.00, to = 0.999, by =.001)) %>%
+pareto_df <- data_frame(probs = seq(from = 0.00, to = 0.999, by = 0.001)) %>%
   dplyr::mutate(pareto_x = (1 - probs)^(-1 / base_q))
 #pareto_df
 
@@ -24,11 +24,19 @@ plot(x = pareto_df$pareto_x, y = pareto_df$probs, xlim = c(0, 10),
 lines(x = pareto_df$pareto_x, y = pareto_df$probs, col = "red")
 
 
-plot(x = 1, xlim = c(0,1), ylim = c(.5, 2), type = 'n', 
-  ylab = 'Change in F(x)', xlab = 'Percentile')
+plot(x = 1, xlim = c(0,1), ylim = c(.5, 2), type = 'n',
+  ylab = ''
+  ylab = expression(p[0]),
+  xlab = 'Percentile', axes = FALSE)
+
+
+
+
+axis(side = 2, at = c(0.5 * 1:4))
+
 text_y = c(1.8, 1.6, 1.4)
 my_colors <- c("red", "blue", "green")
-  
+
 params <- list(q1 = 0.50, q2 = 1, q3 = 3)
 
 sapply(X = params, FUN = function(q) {
