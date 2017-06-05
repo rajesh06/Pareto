@@ -1,0 +1,64 @@
+\section{Errata}\label{sec:errata}
+In reviewing \philbrick, we noted two typographical errors and one calculation error. These are discussed below.
+
+\subsection{Philbrick Errata \#1}
+	In the application of formula (\ref{eqntx:ParetoLEV}), we should understand that there is a minor typographical error in \philbrick. The second paragraph following Equation~(6) appears on Page 56 and includes the following:
+	\begin{quote}
+		\begin{align}
+		b &= 20 \color{red}\times\color{black} (500,000/25,000)\nonumber\\
+		&\text{which should be}\nonumber\\
+		b &= 20 \color{red} = \color{black} 500,000/25,000\nonumber
+		\end{align}
+	\end{quote}
+
+\subsection{Philbrick Errata \#2}
+Starting at the bottom on Page 58 and extending to Page 59, Philbrick presents an example with a $q$ parameter of $1.5$ and expected claim count of 7 that results in the following (where $S(x)$ represents the survival function):
+
+\begin{align}
+F(4) &= 1 - 4^{-1.5}\nonumber\\
+F(4) &= 7/8\nonumber\\
+S(4) &= 1 - F(4) = 1/8\nonumber
+\end{align}
+\begin{align}
+\mathbb{E}[n] &= 7\nonumber\\
+\mathbb{E}[n; x > 4] &= 7 \times S(4) = 7/8\label{eqn:exfreq}
+\end{align}
+
+(It is unfortunate that, in this example both $\mathbb{E}[n; x > 4]$ and $S(4)$ both equal $7/8$.)
+
+\begin{align}
+\mathbb{E}[X] &= \frac{1.5}{1.5-1}\nonumber\\
+\mathbb{E}[X] &= 3\nonumber
+\end{align}
+
+\begin{align}
+\mathbb{E}[X; 4] &= \dfrac{1.5 - 4^{1-1.5}}{1.5-1}\nonumber\\
+\mathbb{E}[X; 4] &= \dfrac{1.5 - 4^{-0.5}}{0.5}\nonumber\\
+\mathbb{E}[X; 4] &= \dfrac{1.5 - .5}{0.5}\nonumber\\
+\mathbb{E}[X; 4] &= 2\nonumber
+\end{align}
+The average severity of claims in the layer is $(\mathbb{E}[X] - \mathbb{E}[X; 4]) / S(4) = 8$. Using the frequency calculated in Equation (\ref{eqn:exfreq}), we estimate claims in the layer to be $8 \times 7 / 8 = 7$ which agrees with Philbrick's calculation.
+
+The error occurs when the example is extended to calculate claims in the layer from $AP = 3$ to $L = 7.5$. Using the approach above, we have the following:
+\begin{align}
+\mathbb{E}[X;3] &= 1.845299\nonumber\\
+\mathbb{E}[X;7.5] &= 2.269703\nonumber\\
+F(3) &= 0.8075499\nonumber\\
+S(3) &= 0.1924501.\nonumber
+\end{align}
+The resulting the average claim amount in the layer is 
+\begin{equation}
+\frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
+\end{equation}
+which agrees with Philbrick's calculation of ``net average claim size''. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(2.5)$ term in the frequency calculation is not entirely clear to me. 
+\begin{align}
+S(3) &= 0.1924501\nonumber.
+\end{align}
+With that we have average claim amounts in the layer at 
+\begin{equation}
+\frac{\mathbb{E}[X;7.5] - \mathbb{E}[X;3]}{1 - F(3)} = 2.205267 \nonumber
+\end{equation}
+which agrees with Philbrick's calculation of ``net average claim size'' on Page 59. However, the corresponding frequency should be $ 7 \times S(3)$ = 1.347151 and a resulting expected claims in the layer of 2.970827. The purpose of the $F(87,500/75,000) = F(2.5)$ term in the frequency calculation is not entirely clear to this author. 
+
+\subsection{Philbrick Errata \#3}
+Equation (11) indicates that ``$n$th moment of the Pareto distribution with no upper limit is'' $\dfrac{q}{q \color{red}+\color{black} n}$. Then, in Equation (12) the second moment is represented in the calculation of variance by $\dfrac{q}{q \color{red}-\color{black} n}$ and of course we have the calculation of mean (first moment, $n$ = 1) as $\dfrac{q}{q - 1}$. We can clearly see the error in Equation (11).

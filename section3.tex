@@ -1,0 +1,58 @@
+\section{The Pareto Parameter}
+\subsection{Actuarial Application}
+In order to provide context to the Pareto parameter, we first review application of the SPP. 
+
+We can use Equation (\ref{EV}), to calculate the limited expected value through $b$ as presented in Appendix \ref{ParetoLEV} as:\footnote{Philbrick used $b$ to refer to both the ``lower bound'' and the policy limit. We will not do that in this paper primarily for clarity as using a variable to represent the lower bound implied at least the possibility that the lower bound was a parameter. Conveniently, it also allows us  to use the traditional policy notation as attaching at $AP$ through limit $L$ with the resulting layer width equal to $L - AP$.} 
+
+\begin{equation}
+	\mathbb{E}[X;b] = \frac{q - b^{1-q}}{q-1}\label{eqntx:ParetoLEV}
+\end{equation}
+
+In that derivation, there is no restriction that $q > 1$. That is, we recognize that, although the limited expected value is undefined, expected values are defined when we have an upper limit (such as a policy limit). Moreover, In Section IV., Philbrick indicates that:
+\begin{quote}
+	... but most actual data suggests that the tail of the Pareto is still somewhat too “thick” at extremely high loss amounts. In other words, the theoretical density at high loss amounts is larger than empirical experience tends to indicate. Rather than discard the Pareto, it is easier to postulate that the distribution is censored or truncated at some high, but finite, value. As we have seen earlier, any upper limitation (either censorship point or truncation point) will produce formul\ae~ for the mean claim size that are finite for all possible
+	values of $q$. 
+\end{quote}
+
+As such, users of the SPP need not ``fear'' $q$ values less than 1 for most insurance applications.
+
+So for the expected claim amount for the layer between $AP$ and $L$, we have:
+
+\begin{align}
+\mathbb{E}[X;AP, L] &= \frac{q - L^{1-q}}{q-1} - \frac{q - AP^{1-q}}{q-1}\nonumber \\
+&= \frac{AP^{1-q} - L^{1-q}}{q-1}\label{eqn:layerclaims}
+\end{align}
+
+This is, of course, likely the most common use of the SPP, estimating claims for an excess policy. This was also a focus of Section III of \philbrick. 
+
+\subsection{Policy Claims Estimate}
+The purpose of the Philbrick calculation was likely demonstrate that the average claim size in the layer between $AP$ and $L$ was equal to the expected value of claims limited to $L / AP$ net of the lower bound but multiplied by $AP$. The latter is calculated as Equation (\ref{eqntx:ParetoLEV}) $- 1$ which simplifies to:
+\begin{equation}
+\frac{1 - b^{1-q}}{q-1} \times AP
+\end{equation}
+
+We can demonstrate that using Equation (\ref{eqn:layerclaims}) and the survival function as follows:
+\begin{align}
+\dfrac{\dfrac{AP^{1-q} - L^{1-q}}{q-1}}{S(AP)} &= 
+\dfrac{\dfrac{AP^{1-q} - L^{1-q}}{q-1}}{AP^{-q}}\nonumber\\
+	&= \frac{1}{q-1} \times \frac{AP}{AP} \times \frac{AP^{1-q} - L^{1-q}}{AP^{-q}}\nonumber\\
+	&= \frac{AP}{q-1} \times \frac{AP^{1-q} - L^{1-q}}{AP^{1-q}}\nonumber\\
+	&= \frac{AP}{q-1} \times \left(1 - \left(\frac{L}{AP}\right)^{1-q}\right)\nonumber\\
+	&= \frac{1 - (L/AP)^{1-q}}{q-1} \times AP
+\end{align}
+
+As mentioned, the most common actuarial application of the SPP is to estimate the number of claims, their average value and the resulting aggregate claim amount to a policy. We therefore summarize those formul\ae~in the Table \ref{tbl:PolicyFormulas}.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}[h]{cc}
+		\toprule
+		Number of Claims & $S(AP) = AP^{-q}$\\ \midrule
+		Average Value of Individual Claims & $\dfrac{1 - (L/AP)^{1-q}}{q-1} \times AP$\\ \midrule
+		Aggregate Claim Amount & $\dfrac{AP^{1-q} - L^{1-q}}{q-1}$\\
+		\bottomrule
+	\end{tabular}
+	\caption{Policy Analysis}\label{tbl:PolicyFormulas}			
+\end{table}
+
+
+
