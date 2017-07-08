@@ -1,0 +1,137 @@
+\newpage
+\appendix
+\appendixpage
+% How to insert here a TOC concerning only the appendix sections ????
+
+\section{An Inventory of Pareto Distributions}\label{ParetoInventory}
+Appendix first content.
+
+\section{Derivation of Forumul\ae}
+
+\subsection{Expected Values}\label{sec:ParetoEV}
+\begin{align}
+\mathbb{E}[X] & = \int_{1}^{\infty}x f(x) \dif x \nonumber\\
+& = \int_{1}^{\infty}xqx^{-(q+1)} \dif x\nonumber\\
+& = q \int_{1}^{\infty}x^{-q} \dif x\nonumber\\
+& = q \frac{1}{-q+1} x^{-q+1} \Big|_{1}^{\infty}\nonumber\\
+& = \frac{q}{1-q} x^{-q+1} \Big|_{1}^{\infty}\nonumber\\
+\mathbb{E}[X] 	& = \frac{q}{1-q} \dfrac{1}{x^{q-1}} \Big|_{1}^{\infty}\label{eqn:ParetoEV}
+\end{align}
+We can see that for $x = 1$ (the lower limit of integration) equation (\ref{EV}) evaluates to $\dfrac{q}{1-q}$. However for $x = \infty$ (the upper limit of integration), we have the following\footnote{In the limit as $x\to\infty$, the expression evaluates to  $-\dfrac{q}{q+1}$. However evaluated at $\infty$, the expression is undefined.}:
+
+\[
+\frac{q}{1-q} \dfrac{1}{x^{q-1}} = 
+\begin{cases}
+0,& \text{if } q > 1\\
+\text{undefined},& \text{if }q = 1\\         
+\infty, & \text{if }q < 1
+\end{cases}
+\]
+
+and therefore we have: 
+\[
+\mathbb{E}[X]  = 
+\begin{cases}
+0 - \dfrac{q}{1-q},& \text{if } q > 1\\
+\text{undefined},& \text{if } q = 1\\         
+\infty, & \text{if }q < 1
+\end{cases}
+\]
+or more simply:
+
+\begin{equation}
+\mathbb{E}[X]  = 
+\begin{cases}
+\dfrac{q}{q-1},& \text{if } q > 1\\
+\text{undefined},& \text{if } q \leq 1\\         
+\end{cases}
+\end{equation}
+
+\subsection{SPP Cumulative Distribution Function}\label{ParetoF}
+\begin{align}
+	F(x) &= \int_{1}^{x} f(x) \dif x \nonumber\\
+		&= \int_{1}^{x}qx^{-(q+1)} \dif x\nonumber\\
+		&= q \int_{1}^{x}x^{-(q+1)} \dif x\nonumber\\
+		&= q \frac{1}{-(q+1)+1} x^{-q} \Big|_{1}^{x}\nonumber\\
+		&=  q \frac{1}{-q} x^{-q} \Big|_{1}^{x}\nonumber\\
+		&=  - x^{-q}\Big|_{1}^{x}\nonumber\\
+		&= -x^{-q} - (-1^{-q})\nonumber\\
+	 F(x) &=  1 - x^{-q}
+\end{align}
+
+\subsection{Limited Expected Value}\label{sec:ParetoLEV}
+
+We can derive the expected values as:
+\begin{align}
+\mathbb{E}[X] & = \int_{1}^{\infty}x f(x) \dif x \nonumber\\
+& = \int_{1}^{\infty}xqx^{-(q+1)} \dif x\nonumber\\
+& = q \int_{1}^{\infty}x^{-q} \dif x\nonumber\\
+& = q \frac{1}{-q+1} x^{-q+1} \Big|_{1}^{\infty}\nonumber\\
+& = \frac{q}{1-q} x^{-q+1} \Big|_{1}^{\infty}\nonumber\\
+\mathbb{E}[X] 	& = \frac{q}{1-q} \dfrac{1}{x^{q-1}} \Big|_{1}^{\infty}\label{EV}
+\end{align}
+We can see that for $x = 1$ (the lower limit of integration) equation (\ref{EV}) evaluates to $\dfrac{q}{1-q}$. However for $x = \infty$, we have the following\footnote{In the limit as $x\to\infty$, the expression evaluates to  $-\dfrac{q}{q+1}$. However evaluated at $\infty$, the expression is undefined.}:
+
+\[
+\frac{q}{1-q} \dfrac{1}{x^{q-1}} = 
+\begin{cases}
+0,& \text{if } q > 1\\
+\text{undefined},& \text{if } q = 1\\         
+\infty, & \text{if }q < 1
+\end{cases}
+\]
+
+and therefore we have: 
+\[
+\mathbb{E}[X]  = 
+\begin{cases}
+0 - \dfrac{q}{1-q},& \text{if } q > 1\\
+\text{undefined},& \text{if } q = 1\\         
+\infty, & \text{if }q < 1
+\end{cases}
+\]
+or more simply:
+
+\begin{equation}
+\mathbb{E}[X]  = 
+\begin{cases}
+\dfrac{q}{q-1},& \text{if } q > 1\\
+\text{undefined},& \text{if } q \leq 1\\         
+\end{cases}
+\end{equation}
+
+\subsection{SPP Limited Expected Value}\label{ParetoLEV}
+
+The limited expected value is calculated as:
+\begin{align}
+	\mathbb{E}[X;b] 	&= \frac{q}{1-q} \dfrac{1}{x^{q-1}} \Big|_{1}^{b} + b  (1-F(b))\nonumber\\
+ 	&=  \frac{q}{1-q} \left[ \dfrac{1}{b^{q-1}} - \dfrac{1}{1^{q-1}}\right]+  b  \left[1-(1-b^{-q})\right]\nonumber\\
+ 	&=  \frac{q}{1-q} \left[ \dfrac{1}{b^{q-1}} - 1\right]+  b  \left[b^{-q}\right]\nonumber\\
+ 	&=  \frac{q}{q-1} \left[1 - \dfrac{1}{b^{q-1}}\right]+ b^{1-q}\nonumber\\
+ 	&=  \frac{q}{q-1} \left[1 - b^{1-q}\right]+b^{1-q}\\ %This is the formula with E[X] 
+ 	&=  \frac{1}{q-1} \left[q - qb^{1-q} + (q-1)b^{1-q}\right]\nonumber\\
+ 	&=  \frac{1}{q-1} \left[q - b^{1-q}\right]\nonumber\\
+ 	&=	\frac{q - b^{1-q}}{q-1}\label{eqn:ParetoLEV}
+\end{align}
+\newpage
+
+\subsection{Maximum Likelihood Estimator for Parameter}
+ The negative log-likelihood ($NLL$) function given data $D = x_1 \ldots x_n$ is defined as:
+ \begin{align*}
+ L(q) &= \prod_{i=1}^{n} f{x_i}\\
+ \text{NLL} &= -\sum_{i=1}^{n} \ln(f{x_i}) \\
+ \text{NLL} &= -\sum_{i=1}^{n}\ln(qx_i^{-(q+1)})\\
+ \text{NLL} &= -\sum_{i=1}^{n}\left[\ln{q} + \ln{x_i^{-(q+1)}}\right]\\
+ \text{NLL} &= -\sum_{i=1}^{n}\left[\ln{q} - (q+1)\ln{x_i}\right]\\
+ \text{NLL} &= -n\ln{q} + \sum_{i=1}^{n}(q+1)\ln{x_i}\\
+ \text{NLL} &= -n\ln{q} + (q+1)\sum_{i=1}^{n}\ln{x_i}\\
+  \end{align*}
+ We can calculate the MLE of $q$ by taking partial derivatives and setting equal to $0$.
+  \begin{align*}
+ 0 &= \frac{\partial}{\partial q}\left[ 
+ -n\ln{q} + 
+ (q+1)\sum_{i=1}^{n}\ln{x_i}
+ \right] \\
+ 0 &= \frac{\partial}{\partial q}\left[ \sum_{i=1}^{n}\ln(q) + \sum_{i=1}^{n} -(q+1)\ln{x_i}\right] \\
+ 0 &= n - \frac{\partial}{\partial q}\sum_{i=1}^{n} q\ln{x} - \frac{\partial}{\partial q} \sum_{i=1}^{n} \ln{x} 
+ \end{align*}
